@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Socket.io Test</title>
+</head>
+<body>
+  <h1>Socket.io Connection Test</h1>
+  <p id="status">Connecting...</p>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.min.js"></script>
+  <script>
+    const socket = io('http://localhost:5000');
+
+    socket.on('connect', () => {
+      document.getElementById('status').innerText = 'Connected! Socket ID: ' + socket.id;
+    });
+
+    socket.on('seatsUpdated', (data) =>{
+      document.getElementById('status').innerText = 'Seats updated Event: ' + data.eventId + ' - Available: ' + data.availableSeats; 
+    });
+  </script>
+</body>
+</html>
