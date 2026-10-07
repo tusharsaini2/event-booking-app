@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { API_URL } from "../config";
 import axios from "axios";
 import "./MyBookings.css";
 
@@ -21,14 +22,11 @@ function MyBookings() {
     }
 
     try {
-      const response = await axios.get(
-        "http://localhost:5000/api/bookings/my-bookings",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+      const response = await axios.get(`${API_URL}/api/bookings/my-bookings`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-      );
+      });
 
       setBookings(response.data);
     } catch (err) {

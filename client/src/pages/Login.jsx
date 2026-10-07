@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { API_URL } from "../config";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
@@ -14,13 +15,10 @@ function Login() {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/auth/login",
-        {
-          email,
-          password,
-        },
-      );
+      const response = await axios.post(`${API_URL}/api/auth/login`, {
+        email,
+        password,
+      });
 
       //Save token and user info in browser storage
       localStorage.setItem("token", response.data.token);

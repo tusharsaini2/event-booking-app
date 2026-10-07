@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
+import { API_URL } from "../config";
 import axios from "axios";
 import toast from "react-hot-toast";
 import "./EventDetails.css";
@@ -17,9 +18,7 @@ function EventDetails() {
 
   const fetchEvent = async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:5000/api/events/${id}`,
-      );
+      const response = await axios.get(`${API_URL}/api/events/${id}`);
       setEvent(response.data);
     } catch (error) {
       console.log("Error fetching event", error);
@@ -38,7 +37,7 @@ function EventDetails() {
 
     try {
       const orderResponse = await axios.post(
-        "http://localhost:5000/api/bookings/create-order",
+        `${API_URL}/api/bookings/create-order`,
         {
           eventId: id,
           seatsBooked: 1,
@@ -62,7 +61,7 @@ function EventDetails() {
         handler: async function (response) {
           try {
             await axios.post(
-              "http://localhost:5000/api/bookings/verify-payment",
+              `${API_URL}/api/bookings/verify-payment`,
               {
                 razorpay_order_id: response.razorpay_order_id,
                 razorpay_payment_id: response.razorpay_payment_id,

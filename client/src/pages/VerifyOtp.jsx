@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { API_URL } from "../config";
 import axios from "axios";
 import toast from "react-hot-toast";
 import "./Auth.css";
@@ -17,10 +18,10 @@ function VerifyOtp() {
     // setLoading(true);
 
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/auth/verify-otp",
-        { email, otp },
-      );
+      const response = await axios.post(`${API_URL}/api/auth/verify-otp`, {
+        email,
+        otp,
+      });
 
       toast.success(response.data.message);
 

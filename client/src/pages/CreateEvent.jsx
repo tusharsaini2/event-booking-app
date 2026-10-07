@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { API_URL } from "../config";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import "./Auth.css";
@@ -32,7 +33,7 @@ function CreateEvent() {
         formData.append("image", imageFile);
       }
 
-      await axios.post("http://localhost:5000/api/events", formData, {
+      await axios.post(`${API_URL}/api/events`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data",

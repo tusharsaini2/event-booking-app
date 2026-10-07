@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import { Link } from "react-router-dom";
+import { API_URL } from "../config";
 import toast from "react-hot-toast";
 import "./Events.css";
 
@@ -10,7 +11,7 @@ function Events() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const socket = io("http://localhost:5000");
+    const socket = io(API_URL);
 
     socket.on("seatsUpdated", (data) => {
       setEvents((prevEvents) =>
@@ -32,7 +33,7 @@ function Events() {
 
   const fetchEvents = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/events");
+      const response = await axios.get(`${API_URL}/api/events`);
       setEvents(response.data);
     } catch (error) {
       console.log("Error fetching events", error);
@@ -51,7 +52,7 @@ function Events() {
 
     try {
       const orderResponse = await axios.post(
-        "http://localhost:5000/api/bookings/create-order",
+        `${API_URL}/api/bookings/create-order`,
         {
           eventId,
           seatsBooked: 1,
@@ -77,7 +78,7 @@ function Events() {
           //step 3: this is run after successful payment.
           try {
             const verifyresponse = await axios.post(
-              "http://localhost:5000/api/bookings/verify-payment",
+              `${API_URL}/api/bookings/verify-payment`,
               {
                 razorpay_order_id: response.razorpay_order_id,
                 razorpay_payment_id: response.razorpay_payment_id,

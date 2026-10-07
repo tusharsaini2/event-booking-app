@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { API_URL } from "../config";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import "./Auth.css";
@@ -16,10 +17,11 @@ function Signup() {
     setLoading(true);
 
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/auth/signup",
-        { name, email, password },
-      );
+      const response = await axios.post(`${API_URL}/api/auth/signup`, {
+        name,
+        email,
+        password,
+      });
 
       toast.success(response.data.message);
       navigate("/verify-otp", { state: { email } });

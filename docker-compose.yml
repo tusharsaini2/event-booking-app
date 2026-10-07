@@ -1,0 +1,16 @@
+services:
+  backend:
+    build: ./server
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./server/.env
+    container_name: event-booking-backend
+
+  frontend:
+    build: ./client
+    ports:
+      - "8080:80"
+    container_name: event-booking-frontend
+    depends_on:
+      - backend
